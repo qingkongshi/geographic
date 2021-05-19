@@ -91,16 +91,20 @@ public class ReportService {
     /**
      * 河段
      */
-    public Map reportReach(){
+    public Map reportReach(Integer page){
         String url = baseUrl + "/hzz_rvsct_b/bulk";
+
+        Integer pageSize = 10;
+        page = (page - 1)*pageSize;
         // 获取数据
-        List<Reach> list = reachMapper.getList();
+        List<Reach> list = reachMapper.getList(page,pageSize);
         System.out.println(list);
         // 封装json
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
         System.out.println(responseEntity);
         return responseEntity.getBody();
+//        return null;
     }
 
     /**
@@ -121,10 +125,13 @@ public class ReportService {
     /**
      * 河湖长
      */
-    public Map reportRiverLakeManager(){
+    public Map reportRiverLakeManager(Integer page){
         String url = baseUrl + "/hzz_rvmst_b/bulk";
+
+        Integer pageSize = 10;
+        page = (page - 1)*pageSize;
         // 获取数据
-        List<RiverLakeManager> list = riverLakeManagerMapper.getList();
+        List<RiverLakeManager> list = riverLakeManagerMapper.getList(page,pageSize);
         System.out.println(list);
         // 封装json
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));

@@ -15,6 +15,6 @@ import java.util.List;
 @Mapper
 public interface RiverLakeManagerMapper {
 
-    @Select("select * from river_lake_manager")
-    List<RiverLakeManager> getList();
+    @Select("select * from river_lake_manager limit #{page} , #{pageSize}")
+    List<RiverLakeManager> getList(Integer page , Integer pageSize);
 }

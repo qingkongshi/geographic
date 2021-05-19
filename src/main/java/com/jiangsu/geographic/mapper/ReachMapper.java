@@ -15,6 +15,6 @@ import java.util.List;
 @Mapper
 public interface ReachMapper {
 
-    @Select("select * from reach")
-    List<Reach> getList();
+    @Select("select * from reach limit #{page} , #{pageSize}")
+    List<Reach> getList(Integer page , Integer pageSize);
 }

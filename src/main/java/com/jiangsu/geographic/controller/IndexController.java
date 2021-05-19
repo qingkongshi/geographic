@@ -35,8 +35,8 @@ public class IndexController {
     }
 
     @RequestMapping("report4")
-    public Map report4(){
-        return reportService.reportReach();
+    public Map report4(Integer page){
+        return reportService.reportReach(page);
     }
 
     @RequestMapping("report5")
@@ -45,7 +45,7 @@ public class IndexController {
     }
 
     @RequestMapping("report6")
-    public Map report6(){
-        return reportService.reportRiverLakeManager();
+    public Map report6(Integer page){
+        return reportService.reportRiverLakeManager(page);
     }
 }

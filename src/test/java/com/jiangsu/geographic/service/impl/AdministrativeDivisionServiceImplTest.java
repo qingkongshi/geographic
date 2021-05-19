@@ -28,17 +28,17 @@ class AdministrativeDivisionServiceImplTest {
 
     @Test
     void test() {
-        // 行政区划
-        reportService.reportAdministrative();
-        // 湖泊
-        reportService.reportLake();
-        // 湖段
-        reportService.reportLakeSection();
-        // 河段
-        reportService.reportReach();
-        // 水库
-        reportService.reportReservoir();
-        // 河湖长
-        reportService.reportRiverLakeManager();
+//        // 行政区划
+//        reportService.reportAdministrative();
+//        // 湖泊
+//        reportService.reportLake();
+//        // 湖段
+//        reportService.reportLakeSection();
+//        // 河段
+//        reportService.reportReach();
+//        // 水库
+//        reportService.reportReservoir();
+//        // 河湖长
+//        reportService.reportRiverLakeManager();
     }
 }
