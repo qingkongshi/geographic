@@ -41,12 +41,12 @@ public class ReportService {
     @Autowired
     private RestTemplate restTemplate;
 
-    final String baseUrl = "http://localhost/code";
+    final String baseUrl = "http://10.32.37.32:8060/HZZ3203A292F0D49F08";
 
     /**
      * 行政区划
      */
-    public void reportAdministrative(){
+    public Map reportAdministrative(){
         String url = baseUrl+"/HZZ_AD_B/bulk";
         // 获取数据
         List<AdministrativeDivision> list = administrativeDivisionMapper.getList();
@@ -55,12 +55,13 @@ public class ReportService {
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
         System.out.println(responseEntity);
+        return responseEntity.getBody();
     }
 
     /**
      * 湖泊
      */
-    public void reportLake(){
+    public Map reportLake(){
         String url = baseUrl+"/hzz_lk_b/bulk";
         // 获取数据
         List<Lake> list = lakeMapper.getList();
@@ -69,40 +70,13 @@ public class ReportService {
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
         System.out.println(responseEntity);
-    }
-
-    /**
-     * 湖段
-     */
-    public void reportLakeSection(){
-        String url = baseUrl + "/hzz_lksct_b/bulk";
-        // 获取数据
-        List<LakeSection> list = lakeSectionMapper.getList();
-        System.out.println(list);
-        // 封装json
-        JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
-        System.out.println(responseEntity);
-    }
-
-    /**
-     * 河段
-     */
-    public void reportReach(){
-        String url = baseUrl + "/hzz_rvsct_b/bulk";
-        // 获取数据
-        List<Reach> list = reachMapper.getList();
-        System.out.println(list);
-        // 封装json
-        JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
-        System.out.println(responseEntity);
+        return responseEntity.getBody();
     }
 
     /**
      * 水库
      */
-    public void reportReservoir(){
+    public Map reportReservoir(){
         String url = baseUrl + "/hzz_res_b/bulk";
         // 获取数据
         List<Reservoir> list = reservoirMapper.getList();
@@ -111,12 +85,43 @@ public class ReportService {
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
         System.out.println(responseEntity);
+        return responseEntity.getBody();
+    }
+
+    /**
+     * 河段
+     */
+    public Map reportReach(){
+        String url = baseUrl + "/hzz_rvsct_b/bulk";
+        // 获取数据
+        List<Reach> list = reachMapper.getList();
+        System.out.println(list);
+        // 封装json
+        JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
+        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
+        System.out.println(responseEntity);
+        return responseEntity.getBody();
+    }
+
+    /**
+     * 湖段
+     */
+    public Map reportLakeSection(){
+        String url = baseUrl + "/hzz_lksct_b/bulk";
+        // 获取数据
+        List<LakeSection> list = lakeSectionMapper.getList();
+        System.out.println(list);
+        // 封装json
+        JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
+        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
+        System.out.println(responseEntity);
+        return responseEntity.getBody();
     }
 
     /**
      * 河湖长
      */
-    public void reportRiverLakeManager(){
+    public Map reportRiverLakeManager(){
         String url = baseUrl + "/hzz_rvmst_b/bulk";
         // 获取数据
         List<RiverLakeManager> list = riverLakeManagerMapper.getList();
@@ -125,5 +130,6 @@ public class ReportService {
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
         System.out.println(responseEntity);
+        return responseEntity.getBody();
     }
 }
