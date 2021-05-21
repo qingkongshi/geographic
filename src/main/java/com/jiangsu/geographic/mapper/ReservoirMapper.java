@@ -14,6 +14,6 @@ import java.util.List;
  */
 @Mapper
 public interface ReservoirMapper {
-    @Select("select * from reservoir")
-    List<Reservoir> getList();
+    @Select("select * from reservoir limit #{page} , #{pageSize}")
+    List<Reservoir> getList(Integer page ,Integer pageSize);
 }

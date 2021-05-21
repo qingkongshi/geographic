@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class ReportService {
     @Autowired
     private RestTemplate restTemplate;
 
-    final String baseUrl = "http://10.32.37.32:8060/HZZ3203A292F0D49F08";
+    final String baseUrl = "http://172.19.19.3:21680/HZZ3203A292F0D49F08";
 
     /**
      * 行政区划
@@ -58,11 +59,17 @@ public class ReportService {
         return responseEntity.getBody();
     }
 
+    public String selectAdmin(){
+        String url = baseUrl+"/HZZ_AD_B";
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url,String.class);
+        return responseEntity.getBody();
+    }
+
     /**
      * 湖泊
      */
     public Map reportLake(){
-        String url = baseUrl+"/hzz_lk_b/bulk";
+        String url = baseUrl+"/HZZ_LK_B/bulk";
         // 获取数据
         List<Lake> list = lakeMapper.getList();
         System.out.println(list);
@@ -76,59 +83,103 @@ public class ReportService {
     /**
      * 水库
      */
-    public Map reportReservoir(){
-        String url = baseUrl + "/hzz_res_b/bulk";
+    public String reportReservoir(Integer page ,Integer pageSize){
+        String url = baseUrl + "/HZZ_RES_B/bulk";
+        page = (page - 1)*pageSize;
         // 获取数据
-        List<Reservoir> list = reservoirMapper.getList();
+        List<Reservoir> list = reservoirMapper.getList(page,pageSize);
         System.out.println(list);
         // 封装json
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,array, String.class);
         System.out.println(responseEntity);
         return responseEntity.getBody();
+    }
+
+    public String selectReservoir(){
+        String url = baseUrl + "/HZZ_RES_B";
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url,String.class);
+        System.out.println(responseEntity);
+        return responseEntity.getBody();
+    }
+
+    public void deleteReservoir(String ids){
+        System.out.println("【要删除的id】："+ids);
+        String url = baseUrl + "/HZZ_RES_B/bulk?_ids="+ids;
+        restTemplate.delete(url);
     }
 
     /**
      * 河段
      */
-    public Map reportReach(Integer page){
-        String url = baseUrl + "/hzz_rvsct_b/bulk";
-
-        Integer pageSize = 10;
+    public String reportReach(Integer page ,Integer pageSize){
+        String url = baseUrl + "/HZZ_RVSCT_B/bulk";
         page = (page - 1)*pageSize;
         // 获取数据
         List<Reach> list = reachMapper.getList(page,pageSize);
         System.out.println(list);
         // 封装json
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,array, String.class);
         System.out.println(responseEntity);
         return responseEntity.getBody();
 //        return null;
     }
 
+    public String selectReach(String ids){
+        String url = null;
+        if(null == ids){
+            url = baseUrl + "/HZZ_RVSCT_B";
+        }else{
+            url = baseUrl + "/HZZ_RVSCT_B/bulk?_ids="+ids;
+        }
+        System.out.println(url);
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+        System.out.println(responseEntity);
+        return responseEntity.getBody();
+    }
+
+    public String deleteReach(String ids){
+        System.out.println("【要删除的id】："+ids);
+        String url = baseUrl + "/HZZ_RVSCT_B/bulk?_ids="+ids;
+        restTemplate.delete(url);
+        return "";
+    }
+
     /**
      * 湖段
      */
-    public Map reportLakeSection(){
-        String url = baseUrl + "/hzz_lksct_b/bulk";
+    public String reportLakeSection(Integer page ,Integer pageSize){
+        String url = baseUrl + "/HZZ_LKSCT_B/bulk";
+        page = (page - 1)*pageSize;
         // 获取数据
-        List<LakeSection> list = lakeSectionMapper.getList();
+        List<LakeSection> list = lakeSectionMapper.getList(page,pageSize);
         System.out.println(list);
         // 封装json
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(list));
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,array, String.class);
         System.out.println(responseEntity);
         return responseEntity.getBody();
+    }
+
+    public String selectLakeSection(){
+        String url = baseUrl + "/HZZ_LKSCT_B/";
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url,String.class);
+        System.out.println(responseEntity);
+        return responseEntity.getBody();
+    }
+
+    public void deleteLakeSection(String ids){
+        System.out.println("【要删除的id】："+ids);
+        String url = baseUrl + "/HZZ_LKSCT_B/bulk?_ids="+ids;
+        restTemplate.delete(url);
     }
 
     /**
      * 河湖长
      */
-    public Map reportRiverLakeManager(Integer page){
-        String url = baseUrl + "/hzz_rvmst_b/bulk";
-
-        Integer pageSize = 10;
+    public Map reportRiverLakeManager(Integer page,Integer pageSize){
+        String url = baseUrl + "/HZZ_RVMST_B/bulk";
         page = (page - 1)*pageSize;
         // 获取数据
         List<RiverLakeManager> list = riverLakeManagerMapper.getList(page,pageSize);
@@ -138,5 +189,22 @@ public class ReportService {
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url,array, Map.class);
         System.out.println(responseEntity);
         return responseEntity.getBody();
+    }
+
+    public String selectRiverLakeManager(String ids){
+        String url = null;
+        if (null == ids){
+            url = baseUrl + "/HZZ_RVMST_B";
+        }else{
+            url = baseUrl + "/HZZ_RVMST_B/bulk?_ids="+ids;
+        }
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
+        return responseEntity.getBody();
+    }
+
+    public Map deleteRiverLakeManager(String ids){
+        String url = baseUrl + "/HZZ_RVMST_B/bulk?_ids="+ids;
+        restTemplate.delete(url);
+        return new HashMap();
     }
 }

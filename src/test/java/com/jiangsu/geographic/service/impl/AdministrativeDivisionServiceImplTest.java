@@ -20,11 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class AdministrativeDivisionServiceImplTest {
 
-    @Autowired
-    private AdministrativeDivisionService administrativeDivisionService;
-
-    @Autowired
-    private ReportService reportService;
 
     @Test
     void test() {

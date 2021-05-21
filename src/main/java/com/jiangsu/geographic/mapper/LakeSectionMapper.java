@@ -15,6 +15,7 @@ import java.util.List;
 @Mapper
 public interface LakeSectionMapper {
 
-    @Select("select * from lake_section")
-    List<LakeSection> getList();
+    @Select("select * from lake_section limit #{page} , #{pageSize}")
+    List<LakeSection> getList(Integer page ,Integer pageSize);
+
 }

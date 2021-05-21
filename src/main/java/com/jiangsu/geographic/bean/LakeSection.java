@@ -54,7 +54,7 @@ public class LakeSection {
     private String OVERVIEW;
 
     @JSONField(name = "TS")
-    private String TS;
+    private String TS = "2021-05-20T10:18:42.000Z";
 
     @JSONField(name = "NT")
     private String NT;
