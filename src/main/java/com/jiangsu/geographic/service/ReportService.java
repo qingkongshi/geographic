@@ -59,8 +59,13 @@ public class ReportService {
         return responseEntity.getBody();
     }
 
-    public String selectAdmin(){
-        String url = baseUrl+"/HZZ_AD_B";
+    public String selectAdmin(String ids){
+        String url = null;
+        if(null == ids){
+            url = baseUrl + "/HZZ_AD_B";
+        }else{
+            url = baseUrl + "/HZZ_AD_B/bulk?_ids="+ids;
+        }
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(url,String.class);
         return responseEntity.getBody();
     }

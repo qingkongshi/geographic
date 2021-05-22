@@ -25,8 +25,8 @@ public class IndexController {
 //        return reportService.reportAdministrative();
 //    }
     @RequestMapping("select1")
-    public String select1(){
-        return reportService.selectAdmin();
+    public String select1(String ids){
+        return reportService.selectAdmin(ids);
     }
 
 
