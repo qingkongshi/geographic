@@ -42,7 +42,8 @@ public class ReportService {
     @Autowired
     private RestTemplate restTemplate;
 
-    final String baseUrl = "http://172.19.19.3:21680/HZZ3203A292F0D49F08";
+    final String baseUrl = "http://172.19.19.3:14060/HZZ3203A292F0D49F08";
+//    final String baseUrl = "http://172.19.19.3:21680/HZZ3203A292F0D49F08";
 
     /**
      * 行政区划
