@@ -106,8 +106,14 @@ public class ReportService {
         return responseEntity.getBody();
     }
 
-    public String selectReservoir(){
-        String url = baseUrl + "/HZZ_RES_B";
+    public String selectReservoir(String ids){
+        String url = null;
+        if(null == ids){
+            url = baseUrl + "/HZZ_RES_B";
+        }else{
+            url = baseUrl + "/HZZ_RES_B/bulk?_ids="+ids;
+        }
+        System.out.println(url);
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(url,String.class);
         System.out.println(responseEntity);
         return responseEntity.getBody();
@@ -194,8 +200,15 @@ public class ReportService {
         return responseEntity.getBody();
     }
 
-    public String selectLakeSection(){
-        String url = baseUrl + "/HZZ_LKSCT_B/";
+    public String selectLakeSection(String ids){
+        String url = null;
+        if(null == ids){
+            url = baseUrl + "/HZZ_LKSCT_B";
+        }else{
+            url = baseUrl + "/HZZ_LKSCT_B/bulk?_ids="+ids;
+        }
+        System.out.println(url);
+
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(url,String.class);
         System.out.println(responseEntity);
         return responseEntity.getBody();
@@ -223,6 +236,13 @@ public class ReportService {
         return responseEntity.getBody();
     }
 
+    public void updateAndInsert(){
+        List<RiverLakeManager> list = riverLakeManagerMapper.getAllList();
+        for (RiverLakeManager riverLakeManager:list){
+
+        }
+    }
+
     public String selectRiverLakeManager(String ids){
         String url = null;
         if (null == ids){
@@ -235,6 +255,7 @@ public class ReportService {
     }
 
     public Map deleteRiverLakeManager(String ids){
+        System.out.println("【要删除的id】："+ids);
         String url = baseUrl + "/HZZ_RVMST_B/bulk?_ids="+ids;
         restTemplate.delete(url);
         return new HashMap();

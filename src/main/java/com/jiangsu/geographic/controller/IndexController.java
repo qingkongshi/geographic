@@ -42,14 +42,16 @@ public class IndexController {
     }
 
     @RequestMapping("select3")
-    public String select3(){
-        return reportService.selectReservoir();
+    public String select3(String ids){
+        return reportService.selectReservoir(ids);
     }
 
     @RequestMapping("delete3")
     public void delete3(String ids){
         reportService.deleteReservoir(ids);
     }
+
+
 
     @RequestMapping("report4")
     public String report4(Integer page ,Integer pageSize){
@@ -69,19 +71,23 @@ public class IndexController {
         return reportService.deleteReach(ids);
     }
 
+
+
     @RequestMapping("report5")
     public String report5(Integer page ,Integer pageSize){
         return reportService.reportLakeSection(page,pageSize);
     }
     @RequestMapping("select5")
-    public String select5(){
-        return reportService.selectLakeSection();
+    public String select5(String ids){
+        return reportService.selectLakeSection(ids);
     }
 
     @RequestMapping("delete5")
     public void delete5(String ids){
         reportService.deleteLakeSection(ids);
     }
+
+
 
 
     @RequestMapping("report6")

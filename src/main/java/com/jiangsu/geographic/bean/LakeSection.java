@@ -35,6 +35,9 @@ public class LakeSection {
     @JSONField(name = "RV_MST_CD")
     private String RV_MST_CD;
 
+    @JSONField(name = "LOC")
+    private String LOC;
+
     @JSONField(name = "FA_LKSCT_CD")
     private String FA_LKSCT_CD;
 
