@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,9 @@ public class ReportService {
 
     @Autowired
     private RiverLakeManagerMapper riverLakeManagerMapper;
+
+    @Autowired
+    private LogMapper logMapper;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -129,7 +133,29 @@ public class ReportService {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,array, String.class);
         System.out.println(responseEntity);
         return responseEntity.getBody();
-//        return null;
+    }
+    public String reportReachAll(Integer page ,Integer pageSize){
+        String url = baseUrl + "/HZZ_RVSCT_B/bulk";
+        page = (page - 1)*pageSize;
+        // 获取数据
+        List<Reach> list = reachMapper.getList(page,pageSize);
+        List<Reach> list2 = new ArrayList<>();
+        for (Reach reach : list){
+            // 封装json
+            list2.add(reach);
+            JSONArray array= JSONArray.parseArray(JSON.toJSONString(list2));
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(url,array, String.class);
+            System.out.println(responseEntity);
+            logMapper.add(reach.getRVSCT_CD()+":"+responseEntity.toString());
+            list2.clear();
+            System.out.println("============================================================================");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return "已修改："+list.size()+"条";
     }
 
     public String selectReach(String ids){

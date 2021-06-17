@@ -55,6 +55,10 @@ public class IndexController {
     public String report4(Integer page ,Integer pageSize){
         return reportService.reportReach(page,pageSize);
     }
+    @RequestMapping("reportAll4")
+    public String reportAll4(Integer page ,Integer pageSize){
+        return reportService.reportReachAll(page,pageSize);
+    }
 
     @RequestMapping("select4")
     public String select4(String ids){
